@@ -17,8 +17,6 @@ function getPlayerChoice() {
     let selection = prompt("Enter rock, paper, or scissors");
     return selection.toLowerCase();
 }
-getComputerChoice();
-getPlayerChoice();
 //compare selections and determine winner
 function playRound(playerSelection, computerSelection) {
     //losing scenarios
@@ -31,7 +29,28 @@ function playRound(playerSelection, computerSelection) {
         return `Draw, ${playerSelection} and ${computerSelection} are equal`;
     }
 }
-//display result
 
-//reduce number of rounds by 1 
-//restart game until 5 rounds have been played
+function game() {
+    let computerWins = 0;
+    let playerWins = 0;
+    //restart game until 5 rounds have been played
+    for (let numberOfGames = 5; numberOfGames > 0; numberOfGames--) {
+        let result = playRound(getPlayerChoice(), getComputerChoice());
+        // track wins for best of 5 winner
+        if (result.includes("lose")) {
+            computerWins += 1;
+        } else if (result.includes("win")) {
+            playerWins += 1;
+        }
+        //display indivdual game result
+        console.log(result);
+    }
+    //determine best of 5 winner
+    if (computerWins > playerWins) {
+        console.log("You lost the best of 5 rounds");
+    } else if (playerWins > computerWins) {
+        console.log("You won the best of 5 rounds!");
+    } else console.log("Best of 5 was a draw");
+}
+game();
+
